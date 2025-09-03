@@ -3,6 +3,30 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PrimeiraController;
 
+use App\Http\Controllers\ClienteController;
+
+Route::resource('clientes', ClienteController::class);
+//Listar Clientes - GET /clientes -- Route::get('/clientes', [ClienteController::class, 'index'])
+//Abrir formulário para inserir registro - GET /clientes/create -- [ClienteController::class, 'create']
+//Salvar dados - POST /clientes -- método store
+//Mostrar dados do registro - GET /clientes/{id_cliente} -- método show
+//Abrir formulário para editar registro - GET /clientes/{id_cliente}/edit --método edit
+//Salvar alterações - PUT /clientes/{id_cliente} -- método update
+//Excluir um registro - DELETE /clientes/{id_cliente} -- método destroy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Route::get('/teste', [PrimeiraController::class, "teste"]);
 
 Route::get('/exemplo', [PrimeiraController::class, "abrirForm"]);
