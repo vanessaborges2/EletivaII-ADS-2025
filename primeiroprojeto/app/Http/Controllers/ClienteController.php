@@ -49,7 +49,8 @@ class ClienteController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $cliente = Cliente::findOrFail($id);
+        return view("clientes.show", compact("cliente"));
     }
 
     /**
@@ -57,7 +58,8 @@ class ClienteController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $cliente = Cliente::findOrFail($id);
+        return view("clientes.edit", compact("cliente"));
     }
 
     /**
@@ -65,7 +67,19 @@ class ClienteController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $cliente = Cliente::findOrFail($id);
+            $cliente->update($request->all());
+            return redirect()->route("clientes.index")
+                    ->with("sucesso", "Registro alterado!");
+        } catch(\Exception $e){
+            Log::error("Erro ao alterar o registro do cliente! ".$e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'request' => $request->all()
+            ]);
+            return redirect()->route("clientes.index")
+                    ->with("erro", "Erro ao alterar!");
+        }
     }
 
     /**
@@ -73,6 +87,18 @@ class ClienteController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $cliente = Cliente::findOrFail($id);
+            $cliente->delete();
+            return redirect()->route("clientes.index")
+                    ->with("sucesso", "Registro excluído!");
+        } catch(\Exception $e){
+            Log::error("Erro ao excluir o registro do cliente! ".$e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'id' => $id
+            ]);
+            return redirect()->route("clientes.index")
+                    ->with("erro", "Erro ao excluir!");
+        }
     }
 }
