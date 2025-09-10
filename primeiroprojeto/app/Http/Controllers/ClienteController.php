@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cliente;
+use App\Models\Categoria;
 use Illuminate\Suport\Facades\Log;
 
 class ClienteController extends Controller
@@ -22,7 +23,8 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        return view("clientes.create");
+        $categorias = Categoria::all();
+        return view("clientes.create", compact('categorias'));
     }
 
     /**
@@ -59,7 +61,8 @@ class ClienteController extends Controller
     public function edit(string $id)
     {
         $cliente = Cliente::findOrFail($id);
-        return view("clientes.edit", compact("cliente"));
+        $categorias = Categoria::all();
+        return view("clientes.edit", compact("cliente", "categorias"));
     }
 
     /**
