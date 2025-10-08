@@ -4,8 +4,21 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PrimeiraController;
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\AuthController;
 
-Route::resource('clientes', ClienteController::class);
+Route::get('/login', [AuthController::class, 'showFormLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/cadastrar', [AuthController::class, 'showFormCadastro']);
+Route::post('/cadastrar', [AuthController::class, 'cadastrarUsuario']);
+
+Route::middleware('auth')->group(function (){
+    Route::resource('clientes', ClienteController::class);
+    Route::post("/logout", [AuthController::class, "logout"]);
+    Route::get('/inicial', function() { return view("inicial"); });
+});
+
+
+
 //Listar Clientes - GET /clientes -- Route::get('/clientes', [ClienteController::class, 'index'])
 //Abrir formulário para inserir registro - GET /clientes/create -- [ClienteController::class, 'create']
 //Salvar dados - POST /clientes -- método store
