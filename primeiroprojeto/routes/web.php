@@ -14,7 +14,7 @@ Route::post('/cadastrar', [AuthController::class, 'cadastrarUsuario']);
 Route::middleware('auth')->group(function (){
     Route::resource('clientes', ClienteController::class);
     Route::post("/logout", [AuthController::class, "logout"]);
-    Route::get('/inicial', function() { return view("inicial"); });
+    Route::get('/inicial', function() { return view("inicial"); })->name('inicial');
 });
 
 
