@@ -6,15 +6,26 @@ use App\Http\Controllers\PrimeiraController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\AuthController;
 
+use App\Http\Middleware\NivelAdmMiddleware;
+use App\Http\Middleware\NivelCliMiddleware;
+
 Route::get('/login', [AuthController::class, 'showFormLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/cadastrar', [AuthController::class, 'showFormCadastro']);
 Route::post('/cadastrar', [AuthController::class, 'cadastrarUsuario']);
 
 Route::middleware('auth')->group(function (){
-    Route::resource('clientes', ClienteController::class);
     Route::post("/logout", [AuthController::class, "logout"]);
-    Route::get('/inicial', function() { return view("inicial"); })->name('inicial');
+
+    Route::middleware([NivelAdmMiddleware::class])->group(function () {
+        Route::resource('clientes', ClienteController::class);
+        Route::get('/inicial-adm', function() { return view("inicial-adm"); });
+    });
+
+    Route::middleware([NivelCliMiddleware::class])->group(function () {
+        Route::get('/inicial-cli', function() { return view("inicial-cli"); });
+    });
+    
 });
 
 
