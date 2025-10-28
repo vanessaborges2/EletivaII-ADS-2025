@@ -42,53 +42,18 @@
       <h2 class="mb-4 text-center fw-semibold">Nossos Produtos</h2>
       <div class="row g-4">
 
-        <!-- Card 1 -->
+        @foreach($produtos as $p)
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="card h-100 shadow-sm">
             <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Produto 1">
             <div class="card-body text-center">
-              <h5 class="card-title">Camisa Masculina</h5>
-              <p class="card-text text-muted">R$ 79,90</p>
-              <a href="#" class="btn btn-outline-primary">Comprar</a>
+              <h5 class="card-title">{{ $p->nome }}</h5>
+              <p class="card-text text-muted">R${{ number_format($p->valor, 2, ',' , '.') }}</p>
+              <a href="/carrinho/add/{{$p->id}}" class="btn btn-outline-primary">Comprar</a>
             </div>
           </div>
         </div>
-
-        <!-- Card 2 -->
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="card h-100 shadow-sm">
-            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Produto 2">
-            <div class="card-body text-center">
-              <h5 class="card-title">Tênis Esportivo</h5>
-              <p class="card-text text-muted">R$ 249,90</p>
-              <a href="#" class="btn btn-outline-primary">Comprar</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="card h-100 shadow-sm">
-            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Produto 3">
-            <div class="card-body text-center">
-              <h5 class="card-title">Relógio Clássico</h5>
-              <p class="card-text text-muted">R$ 199,90</p>
-              <a href="#" class="btn btn-outline-primary">Comprar</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="card h-100 shadow-sm">
-            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Produto 4">
-            <div class="card-body text-center">
-              <h5 class="card-title">Bolsa Feminina</h5>
-              <p class="card-text text-muted">R$ 159,90</p>
-              <a href="#" class="btn btn-outline-primary">Comprar</a>
-            </div>
-          </div>
-        </div>
+        @endforeach
 
       </div>
     </div>

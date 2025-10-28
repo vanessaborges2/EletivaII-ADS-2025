@@ -5,9 +5,12 @@ use App\Http\Controllers\PrimeiraController;
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CarrinhoController;
 
 use App\Http\Middleware\NivelAdmMiddleware;
 use App\Http\Middleware\NivelCliMiddleware;
+
+Route::get('/', [CarrinhoController::class, 'mostrarProdutos']);
 
 Route::get('/login', [AuthController::class, 'showFormLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
