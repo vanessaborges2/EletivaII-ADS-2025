@@ -6,6 +6,7 @@ use App\Http\Controllers\PrimeiraController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarrinhoController;
+use App\Http\Controllers\InicialCliController;
 
 use App\Http\Middleware\NivelAdmMiddleware;
 use App\Http\Middleware\NivelCliMiddleware;
@@ -26,7 +27,13 @@ Route::middleware('auth')->group(function (){
     });
 
     Route::middleware([NivelCliMiddleware::class])->group(function () {
-        Route::get('/inicial-cli', function() { return view("inicial-cli"); });
+        Route::get('/inicial-cli', [InicialCliController::class, 'index']);
+        Route::get('/carrinho/add/{id}', 
+                        [CarrinhoController::class, 'adicionarCarrinho']);
+        Route::get('/carrinho/remove/{id}', 
+                        [CarrinhoController::class, 'removerCarrinho']);
+        Route::get('/carrinho/fechar', 
+                        [CarrinhoController::class, 'fecharPedido']);
     });
     
 });

@@ -9,7 +9,7 @@ class ItensPedido extends Model
     protected $table = "itens_pedidos";
     public $incrementing = true;
 
-    protected $fillable = ['quantidade', 'produto_id', 'pedido_id'];
+    protected $fillable = ['quantidade', 'produto_id', 'pedido_id', 'preco'];
 
     public function pedido(){
         return $this->belongsTo(Pedido::class, 'pedido_id', 'id');

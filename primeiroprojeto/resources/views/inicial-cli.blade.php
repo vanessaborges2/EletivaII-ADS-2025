@@ -60,6 +60,34 @@
 
 <!-- Conteúdo -->
 <div class="container my-5">
+    @if(!$pedido)
+        <p>Seu carrinho está vazio!</p>
+        <a href="/"> Faça suas compras! </a>
+    @else
+        <table class="table table-bordered">
+            <tr>
+                <td>Produto</td>
+                <td>Quantidade</td>
+                <td>Preço Unitário</td>
+                <td>Subtotal</td>
+                <td></td>
+            </tr>
+            @foreach($pedido->itens as $i)
+                <tr>
+                    <td> {{ $i->produto->nome }} </td>
+                    <td> {{ $i->quantidade }} </td>
+                    <td> {{ $i->PRECO }} </td>
+                    <td> {{ $i->PRECO * $i->quantidade }}</td>
+                    <td> <a href="/carrinho/remove/{{ $i->id }}">Remover</a> </td>
+                </tr>
+            @endforeach
+        </table>
+        <h4>Total da compra: {{$pedido->total}} </h4>
+        <a href="/"> Continuar comprando </a>
+        <a href="/carrinho/fechar"> Finalizar compra </a>
+    @endif
+</div>
+<div class="container my-5">
     <div class="text-center mb-4">
         <h1 class="fw-bold">Dashboard</h1>
         <p class="text-muted">Visualização de dados</p>
